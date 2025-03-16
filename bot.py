@@ -605,12 +605,12 @@ async def clear(ctx, user_arg: str = None):
             await ctx.send("Nie masz statusu do wyczyszczenia.")
             return
         del users[user_id]
-        try:
-            member = ctx.author
-            original = remove_bot_suffix(member.nick) if member.nick else member.name
-            await member.edit(nick=original)
-        except Exception as e:
-            logging.warning(f"Nie udało się przywrócić nicku: {e}")
+        # try:
+        #     member = ctx.author
+        #     original = remove_bot_suffix(member.nick) if member.nick else member.name
+        #     await member.edit(nick=original)
+        # except Exception as e:
+        #     logging.warning(f"Nie udało się przywrócić nicku: {e}")
         await ctx.send("Twój status został wyczyszczony.")
         save_data()
     else:
@@ -625,11 +625,11 @@ async def clear(ctx, user_arg: str = None):
             await ctx.send(f"Użytkownik {member.mention} nie ma statusu.")
             return
         del users[user_id]
-        try:
-            original = remove_bot_suffix(member.nick) if member.nick else member.name
-            await member.edit(nick=original)
-        except Exception as e:
-            logging.warning(f"Nie udało się przywrócić nicku dla {member.name}: {e}")
+        # try:
+        #     original = remove_bot_suffix(member.nick) if member.nick else member.name
+        #     await member.edit(nick=original)
+        # except Exception as e:
+        #     logging.warning(f"Nie udało się przywrócić nicku dla {member.name}: {e}")
         await ctx.send(f"Status użytkownika {member.mention} wyczyszczony.")
         save_data()
 
@@ -750,11 +750,11 @@ async def on_reaction_add(reaction, user):
         if user_id in users:
             del users[user_id]
         member_obj = await get_member(message.guild, user.id)
-        if member_obj:
-            try:
-                await member_obj.edit(nick=remove_bot_suffix(member_obj.nick) if member_obj.nick else member_obj.name)
-            except Exception as e:
-                logging.warning(f"Nie udało się przywrócić nicku: {e}")
+        # if member_obj:
+        #     try:
+        #         await member_obj.edit(nick=remove_bot_suffix(member_obj.nick) if member_obj.nick else member_obj.name)
+        #     except Exception as e:
+        #         logging.warning(f"Nie udało się przywrócić nicku: {e}")
         save_data()
         try:
             await message.remove_reaction(emoji, user)
